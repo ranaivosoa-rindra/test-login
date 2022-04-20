@@ -16,7 +16,6 @@ const ButtonComp = ({ text, ic_name, nextScreen, navigation }) => {
           width: 305,
           height: 44,
           borderRadius: 30,
-          marginTop: 85,
         }}
       >
         <Text

@@ -50,6 +50,7 @@ const WelcomeStyles = StyleSheet.create({
   },
   welcomeTextContainer: {
     alignItems: "center",
+    marginBottom: 85,
   },
   title: {
     fontSize: 24,
