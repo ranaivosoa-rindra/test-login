@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, Text, View } from "react-native";
 import React from "react";
 import { Icon } from "react-native-elements";
 import { LinearGradient } from "expo-linear-gradient";
@@ -11,7 +11,7 @@ const ButtonComp = ({ text, ic_name, nextScreen, navigation }) => {
         colors={[Color1, Color3]}
         style={{
           flexDirection: "row",
-          justifyContent: "flex-end",
+          justifyContent: "center",
           alignItems: "center",
           width: 305,
           height: 44,
@@ -21,9 +21,9 @@ const ButtonComp = ({ text, ic_name, nextScreen, navigation }) => {
         <Text
           style={{
             color: Wh,
-            fontSize: 14,
+            fontSize: 16,
             fontWeight: "bold",
-            paddingRight: 64,
+            paddingLeft: 80,
           }}
         >
           {text}
@@ -34,7 +34,7 @@ const ButtonComp = ({ text, ic_name, nextScreen, navigation }) => {
           size={24}
           color={Wh}
           style={{
-            paddingRight: 18,
+            paddingLeft: 80,
           }}
         />
       </LinearGradient>
