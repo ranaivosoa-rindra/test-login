@@ -5,8 +5,9 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import SignInStyles from "./SignInStyles";
 import StatusBarComp from "../../components/StatusBarComp";
 import Icon from "react-native-vector-icons/Feather";
@@ -15,8 +16,32 @@ import { B } from "../../constants/Constants";
 import GlobalStyles from "../../core-ui/GlobalStyles";
 import ButtonComp from "../../components/ButtonComp";
 import FacebookButton from "../../components/FacebookButton";
+import { auth } from "../../services/Authentication";
+import { LinearGradient } from "expo-linear-gradient";
+import { Color1, Color3, Wh } from "../../constants/Constants";
+import IconElement from "./IconElement";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const SignInScreen = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [securePass, setSecurePass] = useState(true);
+
+  const signIn = () => {
+    if (email === "" || password === "") {
+      Alert.alert("Warning", "Please fill up everything");
+    } else {
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          navigation.navigate("ProfileScreen");
+        })
+        .catch((error) => {
+          // console.log(error);
+          Alert.alert("Error", "Can't log in");
+        });
+    }
+  };
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={SignInStyles.container}>
@@ -34,6 +59,8 @@ const SignInScreen = ({ navigation }) => {
                 placeholder="Type here"
                 style={SignInStyles.input}
                 keyboardType="email-address"
+                value={email}
+                onChangeText={(event) => setEmail(event)}
               />
             </View>
             <View style={GlobalStyles.line}></View>
@@ -45,9 +72,14 @@ const SignInScreen = ({ navigation }) => {
               <TextInput
                 placeholder="Type here"
                 style={SignInStyles.input}
-                secureTextEntry={true}
+                secureTextEntry={securePass}
+                value={password}
+                onChangeText={(event) => setPassword(event)}
               />
-              <TouchableOpacity style={SignInStyles.eyeView}>
+              <TouchableOpacity
+                style={SignInStyles.eyeView}
+                onPress={() => setSecurePass(!securePass)}
+              >
                 <Icon name="eye" size={30} color={B} />
               </TouchableOpacity>
             </View>
@@ -55,13 +87,15 @@ const SignInScreen = ({ navigation }) => {
           </View>
         </View>
         <View style={SignInStyles.bottomViewContainer}>
-          <ButtonComp
-            text="SIGN IN"
-            ic_name="sign-in"
-            nextScreen="ProfileScreen"
-            pl={104}
-            navigation={navigation}
-          />
+          <TouchableOpacity onPress={() => signIn()}>
+            <LinearGradient
+              colors={[Color1, Color3]}
+              style={SignInStyles.linearGd}
+            >
+              <Text style={SignInStyles.gdText}>SIGN IN</Text>
+              <IconElement />
+            </LinearGradient>
+          </TouchableOpacity>
           <View style={SignInStyles.bottomTextView}>
             <Text style={SignInStyles.text}>Don't you have an account? </Text>
             <TouchableOpacity
@@ -70,7 +104,7 @@ const SignInScreen = ({ navigation }) => {
               <Text style={SignInStyles.signInText}>Sign up</Text>
             </TouchableOpacity>
           </View>
-          <FacebookButton />
+          <FacebookButton navigation={navigation} />
         </View>
         <View style={GlobalStyles.barView}>
           <TouchableOpacity style={GlobalStyles.bar}></TouchableOpacity>

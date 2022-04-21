@@ -57,6 +57,20 @@ const SignInStyles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
   },
+  linearGd: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 330,
+    height: 44,
+    borderRadius: 30,
+  },
+  gdText: {
+    color: Wh,
+    fontSize: 16,
+    fontWeight: "bold",
+    paddingLeft: 104,
+  },
 });
 
 export default SignInStyles;

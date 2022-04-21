@@ -5,8 +5,9 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import SignUpStyles from "./SignUpStyles";
 import StatusBarComp from "../../components/StatusBarComp";
 import Header from "../../components/Header";
@@ -16,8 +17,41 @@ import GlobalStyles from "../../core-ui/GlobalStyles";
 import SignInStyles from "../signIn/SignInStyles";
 import FacebookButton from "../../components/FacebookButton";
 import ButtonComp from "../../components/ButtonComp";
+import IconElement from "../signIn/IconElement";
+import { LinearGradient } from "expo-linear-gradient";
+import { Color1, Color3, Wh } from "../../constants/Constants";
+import { auth } from "../../services/Authentication";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUpScreen = ({ navigation }) => {
+  const [checking, setChecking] = useState(false);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [securePass, setSecurePass] = useState(true);
+
+  const signUp = () => {
+    if (email === "" || password === "" || username === "") {
+      Alert.alert("Warning", "Please fill up everything");
+    } else {
+      if (checking === false) {
+        Alert.alert(
+          "Warning",
+          "Please accept our term and conditions to sign up"
+        );
+      } else {
+        createUserWithEmailAndPassword(auth, email, password)
+          .then(() => {
+            // Alert.alert("Success", "New user added");
+            navigation.navigate("SignInScreen");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    }
+  };
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={SignUpStyles.container}>
@@ -31,6 +65,8 @@ const SignUpScreen = ({ navigation }) => {
                 placeholder="Type here"
                 style={SignInStyles.input}
                 keyboardType="email-address"
+                value={email}
+                onChangeText={(event) => setEmail(event)}
               />
             </View>
             <View style={GlobalStyles.line}></View>
@@ -43,6 +79,8 @@ const SignUpScreen = ({ navigation }) => {
                 placeholder="Type here"
                 style={SignInStyles.input}
                 keyboardType="default"
+                value={username}
+                onChangeText={(event) => setUsername(event)}
               />
               <View style={SignInStyles.eyeView}>
                 <Icon name="check" size={20} color={B} />
@@ -57,9 +95,14 @@ const SignUpScreen = ({ navigation }) => {
               <TextInput
                 placeholder="Type here"
                 style={SignInStyles.input}
-                secureTextEntry={true}
+                secureTextEntry={securePass}
+                value={password}
+                onChangeText={(event) => setPassword(event)}
               />
-              <TouchableOpacity style={SignInStyles.eyeView}>
+              <TouchableOpacity
+                style={SignInStyles.eyeView}
+                onPress={() => setSecurePass(!securePass)}
+              >
                 <Icon name="eye" size={30} color={B} />
               </TouchableOpacity>
             </View>
@@ -67,8 +110,13 @@ const SignUpScreen = ({ navigation }) => {
           </View>
         </View>
         <View style={SignUpStyles.termsView}>
-          <TouchableOpacity style={SignUpStyles.box}>
-            <Icon name="check" size={10} color={B} />
+          <TouchableOpacity
+            style={SignUpStyles.box}
+            onPress={() => setChecking(!checking)}
+          >
+            {checking === true ? (
+              <Icon name="check" size={10} color={B} />
+            ) : null}
           </TouchableOpacity>
           <View style={SignUpStyles.termsTextView}>
             <Text style={SignUpStyles.simpleText}>
@@ -82,13 +130,15 @@ const SignUpScreen = ({ navigation }) => {
           </View>
         </View>
         <View style={SignUpStyles.bottomViewContainer}>
-          <ButtonComp
-            text="SIGN UP"
-            ic_name="sign-in"
-            nextScreen="SignInScreen"
-            pl={102}
-            navigation={navigation}
-          />
+          <TouchableOpacity onPress={() => signUp()}>
+            <LinearGradient
+              colors={[Color1, Color3]}
+              style={SignInStyles.linearGd}
+            >
+              <Text style={SignInStyles.gdText}>SIGN UP</Text>
+              <IconElement />
+            </LinearGradient>
+          </TouchableOpacity>
           <View
             style={[
               SignInStyles.bottomTextView,
@@ -102,7 +152,7 @@ const SignUpScreen = ({ navigation }) => {
               <Text style={SignInStyles.signInText}>Sign in</Text>
             </TouchableOpacity>
           </View>
-          <FacebookButton />
+          <FacebookButton navigation={navigation} />
         </View>
         <View style={[GlobalStyles.barView, { marginTop: 8 }]}>
           <TouchableOpacity style={GlobalStyles.bar}></TouchableOpacity>
