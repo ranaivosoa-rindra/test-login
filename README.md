@@ -1,6 +1,6 @@
 # test-login
 
-In project, there are some components that were just for the view and doesn't have any big effect on the uses such as the bottom bar and also the landing page after sign in which is just a landing page but doens't have any effect on the app.
+In project, there are some components that were just for the view and doesn't have any big effect on the uses such as the bottom bar and also the landing page after sign in which is just a landing page but doesn't have any effect on the app.
 
 # installation
 First, start installing node, and npm from their website
