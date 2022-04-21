@@ -1,9 +1,10 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import WelcomeStyles from "./WelcomeStyles";
 import StatusBarComp from "../../components/StatusBarComp";
 import Indicator from "./Indicator";
 import ButtonComp from "../../components/ButtonComp";
+import GlobalStyles from "../../core-ui/GlobalStyles";
 
 const WelcomeScreen = ({ navigation }) => {
   return (
@@ -35,6 +36,9 @@ const WelcomeScreen = ({ navigation }) => {
           nextScreen="SignInScreen"
           navigation={navigation}
         />
+      </View>
+      <View style={[GlobalStyles.barView, { marginTop: 25 }]}>
+        <TouchableOpacity style={GlobalStyles.bar}></TouchableOpacity>
       </View>
       <StatusBarComp hidden={false} />
     </View>

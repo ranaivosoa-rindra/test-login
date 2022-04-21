@@ -34,6 +34,8 @@ const GlobalStyles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "500",
     opacity: 0.6,
+    color: "#171717",
+    opacity: 0.6,
   },
   fbButton: {
     width: 305,
@@ -48,6 +50,18 @@ const GlobalStyles = StyleSheet.create({
     fontSize: 15,
     color: Wh,
     paddingLeft: 6,
+  },
+  barView: {
+    justifyContent: "center",
+    alignItems: "center",
+    opacity: 0.1,
+    marginTop: 17,
+  },
+  bar: {
+    width: 140,
+    height: 5,
+    backgroundColor: B,
+    borderRadius: 100,
   },
 });
 

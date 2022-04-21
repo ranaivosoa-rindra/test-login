@@ -71,6 +71,9 @@ const SignInScreen = ({ navigation }) => {
           </View>
           <FacebookButton />
         </View>
+        <View style={GlobalStyles.barView}>
+          <TouchableOpacity style={GlobalStyles.bar}></TouchableOpacity>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
