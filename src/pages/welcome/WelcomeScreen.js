@@ -34,6 +34,7 @@ const WelcomeScreen = ({ navigation }) => {
           text="GET STARTED"
           ic_name="long-arrow-right"
           nextScreen="SignInScreen"
+          pl={80}
           navigation={navigation}
         />
       </View>

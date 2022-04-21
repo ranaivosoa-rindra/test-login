@@ -59,6 +59,7 @@ const SignInScreen = ({ navigation }) => {
             text="SIGN IN"
             ic_name="sign-in"
             nextScreen="ProfileScreen"
+            pl={104}
             navigation={navigation}
           />
           <View style={SignInStyles.bottomTextView}>

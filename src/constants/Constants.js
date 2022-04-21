@@ -5,3 +5,6 @@ export const B = "#000";
 export const bgColor = "#E5E5E5";
 export const Color2 = "#8F92A1";
 export const Fblue = "#0002FC";
+export const B1 = "#1E414D";
+export const G = "#9C9C9C";
+export const B2 = "#171717";
